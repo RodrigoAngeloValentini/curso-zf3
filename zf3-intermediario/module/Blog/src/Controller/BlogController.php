@@ -1,10 +1,10 @@
 <?php
 
+
 namespace Blog\Controller;
 
 
 use Blog\Form\PostForm;
-use Blog\InputFilter\PostInputFilter;
 use Blog\Model\Post;
 use Blog\Model\PostTable;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -12,7 +12,13 @@ use Zend\View\Model\ViewModel;
 
 class BlogController extends AbstractActionController
 {
+    /**
+     * @var PostTable
+     */
     private $table;
+    /**
+     * @var PostForm
+     */
     private $form;
 
     public function __construct(PostTable $table, PostForm $form)
@@ -26,7 +32,7 @@ class BlogController extends AbstractActionController
         $postTable = $this->table;
 
         return new ViewModel([
-            'posts'=>$postTable->fetchAll()
+            'posts' => $postTable->fetchAll()
         ]);
     }
 
@@ -37,74 +43,71 @@ class BlogController extends AbstractActionController
 
         $request = $this->getRequest();
 
-        if(!$request->isPost()){
-            return ['form'=>$form];
+        if (!$request->isPost()) {
+            return ['form' => $form];
         }
+
         $form->setData($request->getPost());
 
-        if(!$form->isValid()){
-            return ['form'=>$form];
+        if (!$form->isValid()) {
+            return ['form' => $form];
         }
 
         $post = new Post();
         $post->exchangeArray($form->getData());
         $this->table->save($post);
-        return $this->redirect()->toRoute('post');
-
+        return $this->redirect()->toRoute('admin-blog/post');
     }
 
     public function editAction()
     {
-        $id = (int) $this->params()->fromRoute('id',0);
+        $id = (int)$this->params()->fromRoute('id', 0);
 
-        if(!$id){
-            return $this->redirect()->toRoute('post');
+        if (!$id) {
+            return $this->redirect()->toRoute('admin-blog/post');
         }
 
-        try{
+        try {
             $post = $this->table->find($id);
-        }catch(\Exception $e){
-            return $this->redirect()->toRoute('post');
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('admin-blog/post');
         }
 
         $form = $this->form;
         $form->bind($post);
-        $form->get('submit')->setAttribute('value','Edit Post');
+        $form->get('submit')->setAttribute('value', 'Edit Post');
 
         $request = $this->getRequest();
 
-        if(!$request->isPost()){
+        if (!$request->isPost()) {
             return [
-                'id'=>$id,
-                'form'=>$form
+                'id' => $id,
+                'form' => $form
             ];
         }
 
         $form->setData($request->getPost());
-
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             return [
-                'id'=>$id,
-                'form'=>$form
+                'id' => $id,
+                'form' => $form
             ];
         }
 
         $this->table->save($post);
-        return $this->redirect()->toRoute('post');
+        return $this->redirect()->toRoute('admin-blog/post');
     }
 
     public function deleteAction()
     {
-        $id = (int) $this->params()->fromRoute('id',0);
-
-        if(!$id){
-            return $this->redirect()->toRoute('post');
+        $id = (int)$this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('admin-blog/post');
         }
 
         $this->table->delete($id);
-        return $this->redirect()->toRoute('post');
+        return $this->redirect()->toRoute('admin-blog/post');
+        
     }
-
-
 
 }

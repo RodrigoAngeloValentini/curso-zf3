@@ -4,7 +4,6 @@ namespace User;
 
 use Zend\Router\Http\Literal;
 use User\Controller;
-
 return [
     'router' => [
         'routes' => [
@@ -27,14 +26,12 @@ return [
                         'action'     => 'logout',
                     ],
                 ],
-            ]
-
+            ],
         ],
     ],
-
     'view_manager' => [
         'template_path_stack' => [
-            'user' => __DIR__."/../view"
+            'user' => __DIR__ . "/../view"
         ]
     ]
 ];

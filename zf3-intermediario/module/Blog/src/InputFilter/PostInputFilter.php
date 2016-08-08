@@ -1,4 +1,5 @@
 <?php
+
 namespace Blog\InputFilter;
 
 use Zend\Filter\StringTrim;
@@ -6,18 +7,19 @@ use Zend\Filter\StripTags;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\NotEmpty;
 
-class PostInputFilter extends InputFilter{
+class PostInputFilter extends InputFilter
+{
 
     public function __construct()
     {
         $this->add([
-           'name' => 'id',
+            'name' => 'id',
             'required' => true,
             'allow_empty' => true
         ]);
 
         $this->add([
-           'name' => 'title',
+            'name' => 'title',
             'required' => true,
             'filters' => [
                 ['name' => StringTrim::class],
@@ -28,8 +30,7 @@ class PostInputFilter extends InputFilter{
                     'name' => NotEmpty::class,
                     'options' => [
                         'messages' => [
-                            NotEmpty::IS_EMPTY => "Campo Obrigatório!",
-                            NotEmpty::INVALID => "Dados inválidos!"
+                            NotEmpty::IS_EMPTY => 'O campo é requerido!'
                         ]
                     ]
                 ]
@@ -44,13 +45,13 @@ class PostInputFilter extends InputFilter{
                     'name' => NotEmpty::class,
                     'options' => [
                         'messages' => [
-                            NotEmpty::IS_EMPTY => "Campo Obrigatório!",
-                            NotEmpty::INVALID => "Dados inválidos!"
+                            NotEmpty::IS_EMPTY => 'O campo é requerido!'
                         ]
                     ]
                 ]
             ]
-
         ]);
     }
+
+
 }

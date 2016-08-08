@@ -8,6 +8,7 @@ use Interop\Container\ContainerInterface;
 
 class PostFormFactory
 {
+
     public function __invoke(ContainerInterface $container)
     {
         $inputFilter = new PostInputFilter();
@@ -15,4 +16,6 @@ class PostFormFactory
         $form->setInputFilter($inputFilter);
         return $form;
     }
+
+
 }

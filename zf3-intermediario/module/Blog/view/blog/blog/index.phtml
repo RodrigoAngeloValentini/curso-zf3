@@ -1,9 +1,11 @@
+<?php $this->headTitle("Blog"); ?>
+
 <h1>Blog</h1>
 
-<?php $this->headTitle("Blog");?>
-
 <p>
-    <a href="<?=$this->url('post',['action'=>'add']);?>" class="btn btn-primary">New Post</a>
+    <a href="<?= $this->url('admin-blog/post', ['action' => 'add']); ?>">
+        New Post
+    </a>
 </p>
 
 <table class="table">
@@ -11,14 +13,17 @@
         <th>Title</th>
         <th>Action</th>
     </tr>
-    <?php foreach ($posts as $post):?>
+    <?php foreach ($posts as $post): ?>
         <tr>
-            <td><?=$this->escapeHtml($post->title);?></td>
+            <td><?= $this->escapeHtml($post->title); ?></td>
             <td>
-                <a href="<?=$this->url('post',['action'=>'edit','id'=>$post->id])?>">Edit</a>
-                <a href="<?=$this->url('post',['action'=>'delete','id'=>$post->id])?>">Delete</a>
+                <a href="<?=$this->url('admin-blog/post', ['action'=>'edit', 'id'=>$post->id] );?>">
+                    Edit
+                </a>
+                <a href="<?=$this->url('admin-blog/post', ['action'=>'delete', 'id'=>$post->id] );?>">
+                    Delete
+                </a>
             </td>
         </tr>
-
-    <?php endforeach;?>
+    <?php endforeach; ?>
 </table>

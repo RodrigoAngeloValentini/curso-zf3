@@ -1,38 +1,44 @@
 <?php
 
+
 namespace User\Form;
 
+
+use Zend\Form\Element;
 use Zend\Form\Form;
 
 class LoginForm extends Form
 {
+
     public function __construct($name=null)
     {
         parent::__construct('login');
 
         $this->add([
             'name' => 'username',
-            'type' => 'text',
+            'type' => Element\Text::class,
             'options' => [
-                'label' => 'Usuário'
+                'label'=> 'Usuário'
             ]
         ]);
 
         $this->add([
             'name' => 'password',
-            'type' => 'password',
+            'type' => Element\Password::class,
             'options' => [
-                'label' => 'Senha'
+                'label'=> 'Senha'
             ]
         ]);
 
         $this->add([
             'name' => 'submit',
-            'type' => 'submit',
-            'options' => [
-                'value' => 'entrar',
-                'id' => 'submitbutton'
+            'type' => Element\Submit::class,
+            'attributes' => [
+                'value'=> 'Entrar',
+                'id'=>'submitbutton'
             ]
         ]);
+
     }
+
 }

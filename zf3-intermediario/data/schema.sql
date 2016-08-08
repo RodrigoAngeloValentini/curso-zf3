@@ -1,20 +1,29 @@
-CREATE TABLE post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  title VARCHAR(255) NOT NULL,
-  content TEXT NOT NULL
-);
+CREATE TABLE post ( id INTEGER PRIMARY KEY AUTOINCREMENT, title varchar(100) NOT NULL, content TEXT NOT NULL);
+insert into post(title, content) values('Post 1', 'Content 1');
+insert into post(title, content) values('Post 2', 'Content 2');
+insert into post(title, content) values('Post 3', 'Content 3');
+insert into post(title, content) values('Post 4', 'Content 4');
 
-INSERT INTO post(title,content) VALUES('Post 1','Content 1');
-INSERT INTO post(title,content) VALUES('Post 2','Content 2');
-INSERT INTO post(title,content) VALUES('Post 3','Content 3');
-INSERT INTO post(title,content) VALUES('Post 4','Content 4');
-
-CREATE TABLE users (
+CREATE TABLE comments
+(
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  username VARCHAR(100) UNIQUE NOT NULL,
-  password VARCHAR(60),
-  full_name VARCHAR (150) NOT NULL
+  content TEXT NOT NULL,
+  post_id INTEGER NOT NULL
 );
 
-/*SENHA=123456*/
-INSERT INTO users(username,password,full_name) VALUES ('user@user.com','$2y$10$T7HurkXzubrTuK3uD0ozS.4omZ7AZ7P3p.DTm4yRud4g0t3u1066i','User');
+insert into comments(content, post_id) values('Comentario 1', 1);
+insert into comments(content, post_id) values('Comentario 2', 1);
+insert into comments(content, post_id) values('Comentario 3', 2);
+insert into comments(content, post_id) values('Comentario 4', 2);
+
+
+CREATE TABLE users
+(
+ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+ username VARCHAR (100) UNIQUE NOT NULL,
+ password VARCHAR (60),
+ full_name VARCHAR (150) NOT NULL
+);
+
+INSERT INTO users(username, password, full_name)
+            values('luiz@schoolofnet.com','$2y$10$95j.s/9nI1AkhcmAreJlIOmYvGck3z5KHuWkbeiloBsgxyrsyEofC', 'Luiz Carlos');
